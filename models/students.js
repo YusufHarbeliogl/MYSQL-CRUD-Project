@@ -14,13 +14,36 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   students.init({
-    name: DataTypes.STRING,
-    age: DataTypes.INTEGER,
-    class: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg: "Please Fill The Name Field"
+        }
+      }
+    },
+    age: {
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg: "Please Fill The Age Field"
+        }
+      }
+    },
+    class: {
+      type: DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg: "Please Fill The Class Field"
+        }
+      }
+    },
     taken_courses: {
-      type:DataTypes.STRING,
-      defaultValue: "[]"
-
+      type: DataTypes.JSON,
+      defaultValue: JSON.stringify([])
     }
   }, {
     sequelize,
