@@ -39,8 +39,30 @@ const viewUser = async (req,res)=>{
     }
 }
 
+const updateStudent = async (req,res)=>{
+    try {
+        let student = await Students.findOne({where:{id: req.params.id}})
+        let courses = JSON.parse(student.taken_courses).push(req.body.cousrses)
+        console.log(courses);
+        let update = await Students.update(
+            {
+                name: req.body.name,
+                age: req.body.age,
+                class: req.body.class,
+                taken_courses: req.body.courses,
+            }
+        )
+    } catch (error) {
+        res.status(500).json({
+            succeded:false,
+            err: error.message
+        })
+    }
+}
+
 
 module.exports = {
     createStudent,
-    viewUser
+    viewUser,
+    updateUser
 }
